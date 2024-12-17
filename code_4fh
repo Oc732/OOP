@@ -1,0 +1,59 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+
+class employee
+{
+    public:
+    int emp_id;
+    char name[20];
+    float salary;
+    
+    employee(){}
+    void getdata();
+    void displaydata();
+};
+
+void employee :: getdata() {
+cout<<"\nEnter Employee details:"<<endl;
+cout<<"Enter emp_id:";
+cin>>emp_id;
+cin.ignore();
+cout<<"Enter Employee name:";
+cin.getline(name,20);
+cout<<"Enter salary";
+cin>>salary;
+}
+
+void employee :: displaydata(){
+cout<<"\nemp_id:"<<emp_id<<endl;
+cout<<"Employee name:"<<name<<endl;
+cout<<"Salary:"<<salary<<endl;
+}
+
+int main()
+{
+employee o[5];
+fstream f;
+int i,n;
+
+f.open("input.txt",ios::out);
+cout<<"Enter No.of Employees:";
+cin>>n;
+
+for(int i=0; i<n; i++){
+o[i].getdata();
+ 
+f.write((char*)&o[i],sizeof(o[i]));
+}
+f.close();
+
+f.open("input .txt",ios::in);
+cout<<"\nInformation of Employee is as follow:";
+for (int i=0; i<n; i++){
+f.read((char*)&o[i],sizeof(o[i]));
+o[i].displaydata();
+}
+f.close();
+return 0;
+}

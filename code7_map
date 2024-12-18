@@ -80,3 +80,13 @@ int main() {
 
     return 0;
 }
+
+
+
+
+1) start
+2) give a header file to map associative container
+3) insert states name so that we get values as population
+4) Use population map.insert()
+5) display the population of states
+6)End

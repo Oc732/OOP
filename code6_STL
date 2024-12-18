@@ -1,0 +1,132 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+class Record {
+public:
+    int item_code, quantity;
+    float cost;
+    string name;
+
+    bool operator == (const Record &o1) {
+        return name == o1.name; // Corrected to return boolean
+    }
+
+    bool operator < (const Record &o1) {
+        return item_code < o1.item_code; // Corrected to return boolean
+    }
+};
+
+vector<Record> r1;
+
+void insert();
+void display();
+void print1(Record &r1);
+void search();
+void del();
+bool compare(const Record &r1, const Record &r2);
+
+void insert() {
+    Record o1;
+    cout << "\nEnter name: ";
+    cin.ignore();  // Clear the input buffer before using getline
+    getline(cin, o1.name);  // Using getline to accept multi-word strings
+    cout << "\nEnter item code: ";
+    cin >> o1.item_code;
+    cout << "\nEnter required quantity: ";
+    cin >> o1.quantity;
+    cout << "\nEnter cost: ";
+    cin >> o1.cost;
+    r1.push_back(o1);
+}
+
+void display() {
+    for_each(r1.begin(), r1.end(), print1);
+}
+
+void print1(Record &r1) {
+    cout << "\nName: " << r1.name << endl;
+    cout << "Item code: " << r1.item_code << endl;
+    cout << "Quantity: " << r1.quantity << endl;
+    cout << "Cost: " << r1.cost << endl;
+}
+
+void search() {
+    Record o1;
+    vector<Record>::iterator i;
+    cout << "\nEnter name to be searched: ";
+    cin.ignore();
+    getline(cin, o1.name);
+    i = find(r1.begin(), r1.end(), o1);
+    if (i == r1.end()) {
+        cout << "\nNot found";
+    } else {
+        cout << "\nRecord found";
+    }
+}
+
+bool compare(const Record &r1, const Record &r2) {
+    return r1.item_code < r2.item_code;
+}
+
+void del() {
+    vector<Record>::iterator i;
+    Record o1;
+    cout << "\nEnter name of record to be deleted: ";
+    cin.ignore();
+    getline(cin, o1.name);
+    i = find(r1.begin(), r1.end(), o1);
+    if (i == r1.end()) {
+        cout << "\nNot found";
+    } else {
+        r1.erase(i);
+        cout << "\nDeleted";
+    }
+}
+
+int main() {
+    int ch;
+    do {
+        cout << "\n...menu...";
+        cout << "\n1. Insert";
+        cout << "\n2. Display";
+        cout << "\n3. Search";
+        cout << "\n4. Sort";
+        cout << "\n5. Delete";
+        cout << "\n6. Exit";
+
+        cout << "\nEnter your choice: ";
+        cin >> ch;
+
+        switch (ch) {
+            case 1:
+                cout << "\nEnter details of item: ";
+                insert();
+                break;
+            case 2:
+                cout << "\nDisplaying details of items: ";
+                display();
+                break;
+            case 3:
+                search();
+                break;
+            case 4:
+                sort(r1.begin(), r1.end(), compare);
+                cout << "\nSorted order by item_code:";
+                display();
+                break;
+            case 5:
+                del();
+                break;
+            case 6:
+                cout << "\nExiting the program.";
+                break;
+            default:
+                cout << "\nInvalid choice! Please choose again.";
+        }
+    } while (ch != 6);
+
+    return 0;
+}

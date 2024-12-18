@@ -1,0 +1,82 @@
+#include <iostream>
+#include <map>
+#include <string>
+
+using namespace std;
+
+int main() {
+    string state;
+    float population;
+    char ans = 'y';
+    int choice;
+    map<string, float> m;
+    map<string, float>::iterator i;
+
+    do {
+        // Display the menu
+        cout << "\nImplementation of Map Associative Container" << endl;
+        cout << "\n1. Insert state";
+        cout << "\n2. Display";
+        cout << "\n3. Search state";
+        cout << "\n4. Delete" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                // Insert a new state and its population
+                cout << "Enter the name of the state: ";
+                cin >> state;
+                cout << "Enter the population (in crores): ";
+                cin >> population;
+
+                // Correct the map insertion
+                m.insert(pair<string, float>(state, population));
+                break;
+
+            case 2:
+                // Display all states and their populations
+                cout << "State and population are:" << endl;
+                for (i = m.begin(); i != m.end(); i++) {
+                    cout << "[" << i->first << ", " << i->second << "Cr]" << endl;
+                }
+                break;
+
+            case 3:
+                // Search for a state's population
+                cout << "Enter the state name for searching population: ";
+                cin >> state;
+                
+                if (m.count(state) != 0) {
+                    // If the state is found, display the population
+                    cout << "\nPopulation is: " << m.find(state)->second << "Cr" << endl;
+                } else {
+                    cout << "The state is not present!" << endl;
+                }
+                break;
+
+            case 4:
+                // Delete a state from the map
+                cout << "Enter the state to be deleted: ";
+                cin >> state;
+                
+                if (m.erase(state)) {
+                    cout << "The state is deleted." << endl;
+                } else {
+                    cout << "State not found!" << endl;
+                }
+                break;
+
+            default:
+                cout << "Invalid choice. Please try again." << endl;
+                break;
+        }
+
+        // Prompt to continue or exit the loop
+        cout << "Do you want to continue? (y/n): ";
+        cin >> ans;
+
+    } while (ans == 'y' || ans == 'Y');
+
+    return 0;
+}

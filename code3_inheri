@@ -1,0 +1,192 @@
+#include <iostream>
+#include <string>   // Include string for getline()
+using namespace std;
+
+class publication {
+public:
+    float price;
+    string name;
+
+    publication() {
+        name = "none";
+        price = 0.0;
+    }
+
+    void getdata(string s) {
+        cout << "\nEnter the name of the " << s << ": ";
+        cin.ignore();        // Clear input buffer
+        getline(cin, name);  // Allow multi-word input
+
+        bool flag = false;
+        while (!flag) {
+            cout << "\nEnter the price of the " << s << ": ";
+            cin >> price;
+
+            try {
+                if (price <= 0)
+                    throw price;
+                else
+                    flag = true;
+            } catch (float x) {
+                price = 0.0;
+                cout << "\nYou have entered an invalid price.";
+                cout << "\nThe price has been set to " << price;
+                cout << "\nEnter valid input.";
+            }
+        }
+    }
+
+    inline string getname() {
+        return name;
+    }
+
+    inline float getprice() {
+        return price;
+    }
+};
+
+class book : public publication {
+public:
+    int pages;
+
+    book() {
+        pages = 0;
+    }
+
+    void getpages() {
+        bool flag = false;
+        while (!flag) {
+            cout << "\nEnter the number of pages: ";
+            cin >> pages;
+
+            try {
+                if (pages <= 0)
+                    throw pages;
+                else
+                    flag = true;
+            } catch (int x) {
+                pages = 0;
+                cout << "\nYou have entered an invalid number of pages.";
+                cout << "\nThe number of pages has been set to " << pages;
+                cout << "\nEnter valid input.";
+            }
+        }
+    }
+
+    void display() {
+        cout << "\nBook Found!";
+        cout << "\nDetails of the Book:";
+        cout << "\nName of the Book: " << getname();
+        cout << "\nNumber of Pages: " << pages;
+        cout << "\nPrice: " << getprice();
+    }
+};
+
+class tape : public publication {
+public:
+    float time;
+
+    tape() {
+        time = 0.0;
+    }
+
+    void gettime() {
+        bool flag = false;
+        while (!flag) {
+            cout << "\nEnter the playing time of the tape in minutes: ";
+            cin >> time;
+
+            try {
+                if (time <= 0)
+                    throw time;
+                else
+                    flag = true;
+            } catch (float x) {
+                time = 0.0;
+                cout << "\nYou have entered an invalid time.";
+                cout << "\nThe time has been set to " << time;
+                cout << "\nEnter valid input.";
+            }
+        }
+    }
+
+    void display() {
+        cout << "\nAudio Cassette Found!";
+        cout << "\nDetails of the Audio Cassette:";
+        cout << "\nName of the Tape: " << getname();
+        cout << "\nPlaying Time: " << time << " minutes";
+        cout << "\nPrice: " << getprice();
+    }
+};
+
+int main() {
+    int choice;
+    book objb;
+    tape objt;
+
+    cout << "\nWelcome to the Inheritance Program";
+
+    do {
+        cout << "\nMenu:";
+        cout << "\n\t1. Insert a Book";
+        cout << "\n\t2. Insert an Audio Cassette";
+        cout << "\n\t3. Display Book Details";
+        cout << "\n\t4. Display Audio Cassette Details";
+        cout << "\n\t5. Exit";
+        cout << "\nEnter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                objb.getdata("book");
+                objb.getpages();
+                cout << "\nBook is being added..." << endl;
+                break;
+
+            case 2:
+                objt.getdata("Audio Cassette");
+                objt.gettime();
+                cout << "\nAudio Cassette is being added..." << endl;
+                break;
+
+            case 3:
+                try {
+                    if (objb.getname() == "none")
+                        throw 3;
+                    else {
+                        objb.display();
+                        cout << "\nWe hope you purchase a book again!";
+                    }
+                } catch (int x) {
+                    cout << "\nNo book has been added yet.";
+                    cout << "\nChoose the correct option.";
+                }
+                break;
+
+            case 4:
+                try {
+                    if (objt.getname() == "none")
+                        throw 3;
+                    else {
+                        objt.display();
+                        cout << "\nWe hope you purchase an audio cassette again!";
+                    }
+                } catch (int x) {
+                    cout << "\nNo audio cassette has been added yet.";
+                    cout << "\nChoose the correct option.";
+                }
+                break;
+
+            case 5:
+                cout << "\n..........VISIT AGAIN..........";
+                break;
+
+            default:
+                cout << "\nInvalid choice! Please enter a valid option.";
+        }
+    } while (choice != 5);
+
+    cout << "\nEnd of the Program";
+    cout << "\nThank You!";
+    return 0;
+}

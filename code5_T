@@ -1,0 +1,69 @@
+#include <iostream>
+using namespace std;
+
+// Global variable for the number of elements
+int n;
+
+// Template function for Selection Sort
+template <class T>
+void selection(T A[])  // Changed 'size' to '[]' for dynamic array input
+{
+    int i, j, min;
+    T temp;
+
+    // Outer loop for selecting the minimum element
+    for (i = 0; i < n; i++)
+    {
+        min = i;
+        // Inner loop to find the minimum element in the unsorted part
+        for (j = i + 1; j < n; j++)
+        {
+            if (A[j] < A[min])
+                min = j;
+        }
+        
+        // Swap the found minimum element with the first element
+        temp = A[i];
+        A[i] = A[min];
+        A[min] = temp;
+    }
+
+    // Display the sorted list
+    cout << "\nThe Sorted list is: ";
+    for (i = 0; i < n; i++)
+        cout << "\t" << A[i];
+    cout << endl;  // Added for better output formatting
+}
+
+int main()
+{
+    int i;
+    
+    // Integer array declaration with dynamic size
+    int A[100];  // Changed 'size' to a fixed size (e.g., 100)
+    float B[100];  // Changed 'size' to a fixed size (e.g., 100)
+
+    // Handling Integer Elements
+    cout << "\nSelection Sort";
+    cout << "\nHandling Integer Elements";
+    cout << "\nHow Many Elements Are There? ";
+    cin >> n;
+    cout << "\nEnter the integer numbers: ";
+    for (i = 0; i < n; i++)
+        cin >> A[i];
+
+    selection(A);  // Call selection sort for integer array
+
+    // Handling Floating-Point Elements
+    cout << "\nHandling Floating Elements";
+    cout << "\nHow Many Elements Are There? ";
+    cin >> n;
+    cout << "\nEnter the floating-point numbers: ";
+    for (i = 0; i < n; i++)
+        cin >> B[i];
+
+    selection(B);  // Call selection sort for float array
+
+    cout << "\n";
+    return 0;
+}

@@ -1,0 +1,85 @@
+#include <iostream>
+using namespace std;
+
+class Complex {
+public:
+    float real, img;
+
+    // Default constructor to initialize real and img to 0
+    Complex() {
+        real = 0.0;
+        img = 0.0;
+    }
+
+    // Overloaded + operator to add two Complex numbers
+    Complex operator+(Complex obj);
+
+    // Overloaded * operator to multiply two Complex numbers
+    Complex operator*(Complex obj);
+
+    // Friend function to overload the output stream (<<) operator
+    friend ostream &operator<<(ostream &, const Complex &);
+
+    // Friend function to overload the input stream (>>) operator
+    friend istream &operator>>(istream &, Complex &);
+};
+
+// Definition of the + operator
+Complex Complex::operator+(Complex obj) {
+    Complex temp;
+    temp.real = real + obj.real;
+    temp.img = img + obj.img;
+    return temp;
+}
+
+// Definition of the * operator (fixed the multiplication logic)
+Complex Complex::operator*(Complex obj) {
+    Complex temp;
+    temp.real = real * obj.real - img * obj.img; // Corrected real part
+    temp.img = real * obj.img + img * obj.real;  // Corrected imaginary part
+    return temp;
+}
+
+// Definition of the >> operator for input
+istream &operator>>(istream &is, Complex &obj) {
+    cout << "Enter real part: ";
+    is >> obj.real;
+    cout << "Enter imaginary part: ";
+    is >> obj.img;
+    return is;
+}
+
+// Definition of the << operator for output
+ostream &operator<<(ostream &os, const Complex &obj) {
+    os << obj.real;
+    if (obj.img >= 0) {
+        os << " + " << obj.img << "i";
+    } else {
+        os << " - " << -obj.img << "i";
+    }
+    return os;
+}
+
+int main() {
+    Complex a, b, c, d;
+
+    // Input for the first complex number
+    cout << endl << "Enter 1st complex number:" << endl;
+    cin >> a;
+
+    // Input for the second complex number
+    cout << endl << "Enter 2nd complex number:" << endl;
+    cin >> b;
+
+    // Performing addition
+    cout << endl << "Arithmetic operations are:" << endl;
+    c = a + b;
+    cout << "Addition is = " << c << endl;
+
+    // Performing multiplication
+    d = a * b;
+    cout << "Multiplication is = " << d << endl << endl;
+
+    return 0;
+}
+

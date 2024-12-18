@@ -1,4 +1,4 @@
-#include <iostream>  // For input and output operations
+#include <iostream>
 #include <fstream>   // For file handling operations (read/write)
 using namespace std;
 
@@ -11,20 +11,16 @@ public:
 
     employee() {}      // Default constructor
 
-    // Function to get employee details from the user
-    void getdata();
+    void getdata();    // Function to get employee details from the user
 
-    // Function to display employee details
-    void displaydata();
+    void displaydata();  // Function to display employee details
 };
 
-// Definition of the `getdata` function to input employee details
 void employee::getdata() {
     cout << "\nEnter Employee details:" << endl;
 
     cout << "Enter emp_id: ";
     cin >> emp_id;
-    cin.ignore();  // Clear the input buffer before taking string input
 
     cout << "Enter Employee name: ";
     cin.getline(name, 20);  // Read the name with spaces
@@ -33,36 +29,32 @@ void employee::getdata() {
     cin >> salary;
 }
 
-// Definition of the `displaydata` function to display employee details
 void employee::displaydata() {
     cout << "\nemp_id: " << emp_id << endl;
     cout << "Employee name: " << name << endl;
     cout << "Salary: " << salary << endl;
 }
 
-// Main function: the entry point of the program
 int main() {
     employee o[5];    // Array of `employee` objects to store up to 5 employees
     fstream f;        // File stream object for file operations
     int i, n;         // Variables to store loop index and number of employees
 
-    // Open the file "input.txt" in write mode to save employee details
-    f.open("input.txt", ios::out);
+    f.open("input.txt", ios::out);  // Open the file "input.txt" in write mode to save employee details
 
     cout << "Enter No. of Employees: ";
     cin >> n;
 
-    // Loop to get data for each employee and write it to the file
+// Loop to get data for each employee and write it to the file
     for (int i = 0; i < n; i++) {
         o[i].getdata();                      // Get details for employee `i`
         f.write((char*)&o[i], sizeof(o[i])); // Write the employee object to the file
     }
 
-    // Close the file after writing
-    f.close();
+    f.close();   // Close the file after writing
 
-    // Open the file "input.txt" in read mode to retrieve employee details
-    f.open("input.txt", ios::in);
+    
+    f.open("input.txt", ios::in);  // Open the file "input.txt" in read mode to retrieve employee details
 
     cout << "\nInformation of Employees is as follows:";
 

@@ -69,3 +69,14 @@ int main() {
 
     return 0;  // Indicate that the program ended successfully
 }
+
+1) Start
+2) Create Data
+3) Define data members emp_id and name
+4) define getdata() to take name&roll.no from user
+5)Define displaydata() to display the record
+6) in main() create Object of class and fstream
+7) Take a limit from user in variable
+8) open file in output mode,call getdata() to record from user
+9) open file in in mode,read the record from file by displaydata()
+10)stop

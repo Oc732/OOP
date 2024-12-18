@@ -70,3 +70,10 @@ int main()
     cout << "\n";
     return 0;  // Indicate that the program ended successfully
 }
+
+
+1)Start
+2)Decalre Parameter T
+3) Define template function for selection sort
+4)Define two arrays one for integer and one for float and call sorting functions to sort the numbers
+5) Stop

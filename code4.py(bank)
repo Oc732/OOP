@@ -1,0 +1,57 @@
+EXPERIMENT No.4- Write a Python program that computes the net amount of bank account based on a transaction log
+from console input. The transaction log format is as following. D 100, W 200 (Withdrawal is not
+allowed if balance is going -ve. Write functions for withdraw and deposit). D means deposit
+while W means withdrawal. Suppose the following input is supplied to the program:
+D 300, D 300, W 200, D 100; Then the output should be: 500
+
+
+
+
+
+balance = 0.0
+
+def deposit(amount):
+    global balance
+    if amount < 0:
+        print("Amount can't be less than zero")
+    else:
+        balance += amount
+        print("Deposit Done!")
+
+def withdraw(amount):
+    global balance
+    if amount < 0:
+        print("Amount can't be less than zero")
+    else:
+        if amount > balance:
+            print("\aInsufficient balance!")
+        else:
+            balance -= amount
+            print("Withdrawal Done!")
+
+while True:
+    print('Menu')
+    print("1. Make Transaction")
+    print("2. Show Account Balance")
+    print("3. Exit")
+    ch = int(input("Enter your choice: "))
+
+    if ch == 1:
+        s = input("Enter the transaction string (D/W amount): ")
+        amount = float(s.split()[1])
+        
+        if s.lower()[0] == 'd':  # Deposit
+            deposit(amount)
+        elif s.lower()[0] == 'w':  # Withdrawal
+            withdraw(amount)
+        else:
+            print("Invalid transaction type! Please use 'D' for deposit or 'W' for withdrawal.")
+
+    elif ch == 2:
+        print('Current Balance is Rs.', balance)
+    
+    elif ch == 3:
+        break
+    
+    else:
+        print("Invalid choice! Please enter 1, 2, or 3.")
